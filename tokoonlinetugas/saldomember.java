@@ -53,6 +53,14 @@ public abstract class saldomember {
                 }
                 saldomember += - saldo -tax;
                 System.out.println("saldo anda telah di update");
+                System.out.println("ingin balik ke menu awal? (Y/N)");
+                String seleksi3 = a.nextLine().toLowerCase();
+                if(seleksi3.equals("y") || seleksi3.equals("yes")){
+                    menutama();
+                }
+                else if (seleksi3.equals("n")|| seleksi3.equals("no")){
+                    System.exit(0);
+                }
             }
             
         }

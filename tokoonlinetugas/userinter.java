@@ -41,6 +41,12 @@ public abstract class userinter {
     public int getTelepon(){
         return this.telepon;
     }
+    public String getHarga() {
+        return null;
+    }
+    public String getJumlah() {
+        return null;
+    }
    
    
 
