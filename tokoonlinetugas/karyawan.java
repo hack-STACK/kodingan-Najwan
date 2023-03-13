@@ -8,7 +8,7 @@ public class karyawan extends userinter implements karyawaninter {
     String jabatana = null;
     Scanner a = new Scanner(System.in);
 
-
+    //penggunaan abstract 
     public void nama(){
         this.setNama(null);
     }
@@ -20,6 +20,7 @@ public class karyawan extends userinter implements karyawaninter {
         this.setTelepon();
       
     }
+    //penggunaan interface
     public void jabatan(){
         System.out.println("masukkan jabatan anda \n1.boss\n2.manager\n3.karyawan");
         int jabatan = a.nextInt();
@@ -34,7 +35,7 @@ public class karyawan extends userinter implements karyawaninter {
         }
      }
 
-
+     //display output
     public void display(){
         nama();
         alamat();
