@@ -2,7 +2,6 @@ package tokoonlinetugas;
 
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 import tokoonlinetugas.Myinterfecases.barangmember;
@@ -60,23 +59,18 @@ public class member extends userinter implements barangmember{
       
     }
     public void saldomember(){
-        this.setsaldomember();
+        this.saldomember();
     }
-    public void setOverall(){
-        this.setoverall();
-    }
+
 
     double saldomember = 10_000;
     double batasmin = 10_000;
     double tax = 5_000;
 
-    int barang1 = 100;
-    int barang2 = 100;
-
-    
-
     Scanner a= new Scanner(System.in);
-
+    private ArrayList<Barang> namaBarang;
+    private ArrayList<Barang> hargaBarang;
+    private ArrayList<Barang> stokBarang;
     
 
 
@@ -92,7 +86,7 @@ public class member extends userinter implements barangmember{
         String seleksi = a.nextLine().toLowerCase();
 
         switch(seleksi){
-            case ("1") : setoverall();
+            case ("1") : 
             break;
             case ("2") :saldomember();
              break;
@@ -167,7 +161,6 @@ public class member extends userinter implements barangmember{
                         saldo -=batasmin;
                         System.out.println("saldo invalid");
                         System.out.println("silahkan login lagi ;)");
-                        menutama();
                         break;
                     }
             }
@@ -190,138 +183,9 @@ public class member extends userinter implements barangmember{
     
         
     }
-    else if (seleksi.equals("n")||seleksi.equals("no")){
-        menutama();
-    }
-
-    
 }
-
         
-
-  public void setoverall (){
-    
-    
-    roma barang3R = new roma("roma", barang2, 5000.0);
-    
-    double hargaBarang2 = barang3R.getHargaBarang();
-
-    roma barang3 = new roma("malkist", barang1, 5000.0);
-    double hargaBarang1 = barang3.getHargaBarang();
-
-    ArrayList<barang1>listawok = new ArrayList<barang1>();
-    listawok.add(barang3R);
-    listawok.add(barang3);
-
-    for(barang1 barang1 : listawok){
-        barang1.display();
-    }
  
-
-    System.out.println("mau beli yang mana\t=\t");
-    String seleksi = a.nextLine().toLowerCase();
-    if (seleksi.equals("roma")||seleksi.equals("1")){
-        System.out.println("masukkan stok\t=\t");
-        double stok = a.nextInt();
-        if(barang2 > stok){
-            Double r = stok-barang2;  
-            stok = stok * hargaBarang2;
-            System.out.println("hargabarang" + hargaBarang2);
-            System.out.println("harga yang akan dibeli adalah\t=\t"+stok);
-            System.out.println("apakah ingin melanjutkan transaksi?(Y/N)");
-            a.nextLine();
-            String seleksia= a.nextLine().toLowerCase();
-            if (seleksia.equals("yes")||seleksia.equals("y")){
-                if(saldomember > stok){
-                    
-                    
-                    saldomember -= stok;
-                    System.out.println("pembelian sukses");
-                    System.out.println("apakah ingin kembali ke halaman awal?(Y/N)\t=\t");
-                    String seleksi4 = a.nextLine().toLowerCase();
-                    if(seleksi4.equals("yes")||seleksi4.equals("y")){
-                        menutama();
-                        
-                    }
-                    else if(seleksi.equals("no")||seleksi.equals("n")){
-                        System.exit(0);
-                    }
-                }
-
-                else if (saldomember < stok){
-                    System.out.println("saldo anda kurang harap top up terlebih dahulu");
-                    menutama();
-                }
-            }
-            else if (seleksia.equals("no")||seleksia.equals("n")){
-                menutama();
-            }
-
-
-        }
-        else if(barang2<stok){
-            System.out.println("anda membeli lebih dari stok yang seharusnya");
-            a.nextLine();
-            menutama();
-        }
-   
-        
-    }
-    else if(seleksi.equals("2")|| seleksi.equals("malkis")){
-        System.out.println("masukkan stok\t=\t");
-        double stok = a.nextInt();
-        if(barang1 > stok){
-            stok = stok * hargaBarang1;
-            System.out.println("hargabarang" + hargaBarang1);
-            System.out.println("harga yang akan dibeli adalah\t=\t"+stok);
-            System.out.println("apakah ingin melanjutkan transaksi?(Y/N)");
-            a.nextLine();
-            String seleksia= a.nextLine().toLowerCase();
-            if (seleksia.equals("yes")||seleksia.equals("y")){
-                if(saldomember > stok){
-                    stok-=barang1;
-                    saldomember -= stok;
-                    System.out.println("pembelian sukses");
-                    System.out.println("apakah ingin kembali ke halaman awal?(Y/N)\t=\t");
-                    String seleksi4 = a.nextLine().toLowerCase();
-                    if(seleksi4.equals("yes")||seleksi4.equals("y")){
-                        menutama();
-                    }
-                    else if(seleksi.equals("no")||seleksi.equals("n")){
-                        System.exit(0);
-                    }
-                }
-
-                else if (saldomember < stok){
-                    System.out.println("saldo anda kurang harap top up terlebih dahulu");
-                    menutama();
-                }
-            }
-            else if (seleksia.equals("no")||seleksia.equals("n")){
-                menutama();
-            }
-
-
-        }
-        else if(barang1<stok){
-            System.out.println("anda membeli lebih dari stok yang seharusnya");
-            a.nextLine();
-            menutama();
-        }
-    }
-}
-
-    
-    
-    
-  
-  
- 
-   
-    
-   
-
-
  
 
 
@@ -338,6 +202,16 @@ public class member extends userinter implements barangmember{
  
 
 
+// public class baran {
+//    ArrayList<Double> hargaBarang = new ArrayList<Double>();
+//    ArrayList<String> namaBarang = new ArrayList<String>();
+//    ArrayList<Integer> stokBarang = new ArrayList<Integer>();
+//    public void tambahBarang(String barang, Double harga, int stok) {
+//     namaBarang.add(barang);
+//     hargaBarang.add(harga);
+//     stokBarang.add(stok);
+// }
+// }
 
 
     public void display(){
@@ -357,14 +231,23 @@ public class member extends userinter implements barangmember{
     
     
      
-  
-    class transaksi{
-        private Date tanggal;
+   
+    // public void barangMember() {
+    //     baran a = new baran();
+    //     a.tambahBarang("malkis", 5000.0, 100);
+    //     a.tambahBarang("roma", 10_000.0, 100);
+    //     a.tambahBarang("mangga", 1000.0, 100);
+    //     for(barang b :)
 
-        public transaksi(Date tanggal) {
-            this.tanggal = tanggal;
-        }
-    }
+    // }
+
+    // class transaksi{
+    //     private Date tanggal;
+
+    //     public transaksi(Date tanggal) {
+    //         this.tanggal = tanggal;
+    //     }
+    // }
 
 
 
