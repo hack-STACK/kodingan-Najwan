@@ -7,4 +7,5 @@ public class main {
         display display = new display();
         display.display();
     }
+
 }

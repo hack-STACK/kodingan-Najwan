@@ -8,11 +8,22 @@ public class barang1 extends member {
     private String namaBarang;
     private int stokBarang = 0;
     private double hargaBarang;
+
+    public int getPenguranganStok() {
+        return penguranganStok;
+    }
+
+    public void setPenguranganStok(int penguranganStok) {
+        this.penguranganStok = penguranganStok;
+    }
+
+    private int penguranganStok;
     //pembuatan class input
-    barang1(String namaBarang, int stokBarang, double hargaBarang2) {
+    barang1(String namaBarang, int stokBarang, double hargaBarang2, int penguranganStok) {
         this.namaBarang = namaBarang;
         this.stokBarang = stokBarang;
         this.hargaBarang = hargaBarang2;
+        this.penguranganStok = penguranganStok;
     }
 
     void setName(String namaBarangNew) {
