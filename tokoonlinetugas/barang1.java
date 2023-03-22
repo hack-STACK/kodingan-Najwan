@@ -8,6 +8,19 @@ public class barang1 extends member {
     private String namaBarang;
     private int stokBarang = 0;
     private double hargaBarang;
+    //setter and getter
+    public int getIndex() {
+        return index;
+    }
+    public String getnama() {
+        return this.namaBarang;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+
+    private  int index;
 
     public int getPenguranganStok() {
         return penguranganStok;
@@ -16,16 +29,6 @@ public class barang1 extends member {
     public void setPenguranganStok(int penguranganStok) {
         this.penguranganStok = penguranganStok;
     }
-
-    private int penguranganStok;
-    //pembuatan class input
-    barang1(String namaBarang, int stokBarang, double hargaBarang2, int penguranganStok) {
-        this.namaBarang = namaBarang;
-        this.stokBarang = stokBarang;
-        this.hargaBarang = hargaBarang2;
-        this.penguranganStok = penguranganStok;
-    }
-
     void setName(String namaBarangNew) {
         this.namaBarang = namaBarangNew;
     }
@@ -45,15 +48,24 @@ public class barang1 extends member {
     public double getHargaBarang() {
         return hargaBarang;
     }
+    private int penguranganStok;
+    //pembuatan constructor
+    barang1(int index,String namaBarang, int stokBarang, double hargaBarang2, int penguranganStok) {
+        this.namaBarang = namaBarang;
+        this.stokBarang = stokBarang;
+        this.hargaBarang = hargaBarang2;
+        this.penguranganStok = penguranganStok;
+        this.index = index;
+    }
+
+
     //display output
     public void display() {
-        System.out.println("Nama \t\t=\t" + this.namaBarang + "\nstok barang\t=\t" + this.stokBarang
+        System.out.println("NO."+this.index+"\nNama \t\t=\t" + this.namaBarang + "\nstok barang\t=\t" + this.stokBarang
                 + "\nharga barang \t=\t " + this.hargaBarang);
         System.out.println("");
     }
 
-    public String getNama() {
-        return this.namaBarang;
-    }
+
 
 }
