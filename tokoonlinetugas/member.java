@@ -1,6 +1,6 @@
 package tokoonlinetugas;
 
-import java.applet.AudioClip;
+
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,40 +13,8 @@ public class member extends userinter {
     //declare variables
     Scanner input = new Scanner(System.in);
     display z = new display();
-    double l, b;
-
-    //barang class
-    public class Barang {
-
-        private String nama;
-        private double harga;
-        private int stok;
-
-        public String getNama() {
-            return nama;
-        }
-
-        public void setNama(String nama) {
-            this.nama = nama;
-        }
-
-        public double getHarga() {
-            return harga;
-        }
-
-        public void setHarga(double harga) {
-            this.harga = harga;
-        }
-
-        public int getStok() {
-            return stok;
-        }
-
-        public void setStok(int stok) {
-            this.stok = stok;
-        }
-    }
-
+    double b;
+    int atas,l,l2,atas2,k;
     //penggunaan abstract
     public void nama() {
         this.setNama(null);
@@ -77,12 +45,12 @@ public class member extends userinter {
 
     //lihat saldo class
     public void Lihatsaldo() {
-        System.out.println("saldo anda sekitar\t=\t" + saldomember);
+        System.out.println("saldo anda \t=\tRP." + saldomember);//melihat saldo anda
         System.out.println("apakah anda ingin kembali? (Y/N)");
         String seleksi = a.nextLine().toLowerCase();
-        if (seleksi.equals("y") || seleksi.equals("yes")) {
+        if (seleksi.equals("y") || seleksi.equals("yes")) {//kondisi ingin kembali ke menu utama
             menutama();
-        } else if (seleksi.equals("n") || seleksi.equals("no")) {
+        } else if (seleksi.equals("n") || seleksi.equals("no")) {//kondisi ingin keluar dari programm
             System.out.println("have a nice day " + getNama());
             System.exit(0);
         }
@@ -90,15 +58,27 @@ public class member extends userinter {
 
     //menambah saldo class
     public void setsaldomember() {
-        System.out.println("saldo anda tersisaadi\t=\t" + saldomember);
+
+        //declare transaksi
+        mandiriBank Mandiri = new mandiriBank("mandiri", 10000, 0, 0, 0);
+        bca bcaa = new bca("bca", 10000, 0, 0, 0);
+        //declare saldo
+        double saldo = bcaa.getNambahsaldo();
+        //barisan dimulai
+        System.out.println("saldo anda tersisa\t=\t" + saldomember);
         System.out.println("apakah anda ingin top up? (Y/N)");
         String seleksi = a.nextLine().toLowerCase();
-        if (seleksi.equals("y") || seleksi.equals("yes")) {
+        if (seleksi.equals("y") || seleksi.equals("yes")) {//kondisi ingin topup
             System.out.println("Ingin menggunakan ATM apa?\n1.Bca\n2.Mandiri");
             String seleksi2 = a.nextLine().toLowerCase();
-            if (seleksi2.equals("bca") || seleksi2.equals("1")) {
-                System.out.println("masukkan saldo yang ingin dimasukkan\n(batas minima top up RP.10.000)");
-                double saldo = a.nextDouble();
+            if (seleksi2.equals(bcaa.getNamaAtm()) || seleksi2.equals("1") || seleksi2.equals(Mandiri.getNamaAtm()) || seleksi2.equals("2")) {
+                if (seleksi2.equals(bcaa.getNamaAtm()) || seleksi2.equals("1")) {
+                    System.out.println("masukkan saldo yang ingin dimasukkan\n(batas minima top up RP." + bcaa.getBiayatax());
+                } else if (seleksi2.equals(Mandiri) || seleksi2.equals("2")) {
+                    System.out.println("masukkan saldo yang ingin dimasukkan\n(batas minima top up RP." + Mandiri.getBiayatax());
+                }
+
+                saldo = a.nextDouble();
                 if (saldo < batasmin) {
                     while (saldo < batasmin) {
                         saldo -= batasmin;
@@ -110,7 +90,7 @@ public class member extends userinter {
                     }
 
                 } else if (saldo > batasmin) {
-                    saldomember += saldo - tax;
+                    saldomember += saldo - bcaa.getBiayatax();
                     System.out.println("saldo anda telah di update");
                     System.out.println("");
                     System.out.println("balik ke menu awal? (y/n)");
@@ -124,67 +104,47 @@ public class member extends userinter {
                     }
                 }
 
-            } else if (seleksi2.equals("mandiri") || seleksi2.equals("2")) {
-                System.out.println("masukkan saldo yang ingin dimasukkan\n(batas minima top up RP.10.000)");
-                double saldo = a.nextDouble();
-                if (saldo < batasmin) {
-                    while (saldo < batasmin) {
-                        saldo -= batasmin;
-                        System.out.println("saldo invalid");
-                        System.out.println("silahkan login lagi ;)");
-                        menutama();
-                        break;
-                    }
-                } else if (saldo > batasmin) {
-                    saldomember += saldo - tax;
-                    System.out.println("saldo anda telah di update");
-                    System.out.println("");
-                    System.out.println("balik ke menu awal? (y/n)");
-                    a.nextLine();
-                    String seleksi3 = a.nextLine().toLowerCase();
-                    if (seleksi3.equals("y") || seleksi3.equals("yes")) {
-                        menutama();
-                    } else {
-                        System.out.println("have a nice day " + getNama());
-                        System.exit(0);
-                    }
-
-                }
             }
-
-        } else if (seleksi.equals("n") || seleksi.equals("no")) {
-            menutama();
         }
 
+//        }
     }
+
+
 
     //beli barang and laporan transaksi class
     public void setoverall() {
-
-        barangsemua barangAlpha = new barangsemua("malkist", 100, 5000);
-        String namaBarang = barangAlpha.getNama();
+        //declare variabel yang akan digunakan dalam perkondisian
+        l = (int)atas;
+        l2 = atas2;
+        malkist barangAlpha = new malkist(1,"malkist", 100-l, 5000,0);
+        String namaBarang = barangAlpha.getnama();
         int stokBarang = barangAlpha.getStokBarang();
         double hargaBarang1 = barangAlpha.getHargaBarang();
-        barangsemua barangDelta = new barangsemua("roma", 100, 5000);
-        String namaBarang2 = barangAlpha.getNama();
+        int penguranganstok = barangAlpha.getPenguranganStok();
+        int index = barangAlpha.getIndex();
+        roma barangDelta = new roma(2,"roma", 100-l2, 5000, 0);
+        String namaBarang2 = barangAlpha.getnama();
         int stokBarang1 = barangDelta.getStokBarang();
         double hargaBarang2 = barangDelta.getHargaBarang();
-
+        int PembelianStok;
+        int index1 = barangDelta.getIndex();
+        //memasukkan barang ke dalam array list
         ArrayList<barang1> listawok = new ArrayList<barang1>();
-        listawok.add(barangAlpha);
-        listawok.add(barangDelta);
+        listawok.add(barangAlpha);//add barang pertama
+        listawok.add(barangDelta);//add barang kedua
 
-        for (barang1 barang1 : listawok) {
-            barang1.display();
+        for (barang1 barang1 : listawok) {//mengeluarkan semua barang ke dalam terminal
+            barang1.display();//display
         }
 
         System.out.print("mau beli yang mana\t=\t");
         String seleksi = a.nextLine().toLowerCase();
-        if (seleksi.equals("malkis") || seleksi.equals("1")) {
+        if (seleksi.equals(namaBarang) || seleksi.equals("1") ) {//user membeli barang 1
             System.out.print("masukkan stok\t=\t");
-            double stok = a.nextInt();
-            if (stokBarang > stok) {
-                double r = stok * hargaBarang1;
+            penguranganstok = a.nextInt();//user memasukkan berapa stok yang ingin dibeli
+            if (stokBarang > penguranganstok) {//memastikan bahwa stok barang lebih besar dari stok yang telah dimasukkan oleh user
+                double r = penguranganstok * hargaBarang1;//menentukan harga
                 System.out.println("hargabarang" + hargaBarang1);
                 System.out.println("harga yang akan dibeli adalah\t=\t" + r);
                 System.out.println("apakah ingin melanjutkan transaksi?(Y/N)");
@@ -193,91 +153,106 @@ public class member extends userinter {
                 if (seleksia.equals("yes") || seleksia.equals("y")) {
                     if (saldomember >= r) {
 
-                        l = stok - stokBarang;
-                        b = saldomember - r;
-                        saldomember = b;
-                        stokBarang -= stok;
+                            l = penguranganstok;//l sama dengan pembelian
+
+
+
+                        atas = (int) l;//pembelian ke variable di atas2
+                        b = saldomember - r;//pengurangan saldo di dalam variabel 'b'
+                        saldomember = b;//hasil b sama dengan saldo
+
+                        stokBarang-=l;
+                        //receipt
                         System.out.println("pembelian sukses");
                         System.out.println("nama\t=\t" + getNama());
                         System.out.println("no telepon\t=\t" + getTelepon());
                         System.out.println("alamat anda\t=\t" + getAlamat());
-                        System.out.println("membeli barang\t=\t" + namaBarang);
-                        System.out.println("stok yang dibeli\t=\t" + stok);
+
+                            System.out.println("membeli barang\t=\t" + namaBarang);
+
+                        System.out.println("stok yang dibeli\t=\t" + l);
                         System.out.println("stok barang sekarang\t= " +stokBarang);
                         System.out.println("======SEDANG DIKIRIM======");
                         System.out.println("apakah ingin kembali ke halaman awal?(Y/N)\t=\t");
-                        String seleksi4 = a.nextLine().toLowerCase();
-                        if (seleksi4.equals("yes") || seleksi4.equals("y")) {
-                            menutama();
 
-                        } else if (seleksi.equals("no") || seleksi.equals("n")) {
-                            System.exit(0);
-                        }
-                    } else if (saldomember <= r) {
+                    } else if (saldomember <= r) {//kondisi ketika saldo kurang
                         System.out.println("saldo anda kurang harap top up terlebih dahulu");
                         menutama();
                     }
-                } else if (seleksia.equals("no") || seleksia.equals("n")) {
+                } else if (seleksia.equals("no") || seleksia.equals("n")) {//kondisi ketika si user tidak ingin melanjutakan transaksi
                     menutama();
                 }
 
-            } else if (stokBarang < stok) {
+            } else if (stokBarang < penguranganstok) {//kondisi ketika si user menginput lebih dari stok yang ada
                 System.out.println("anda membeli lebih dari stok yang seharusnya");
                 a.nextLine();
                 menutama();
             }
 
-        } else if (seleksi.equals("2") || seleksi.equals("roma")) {
+        }
+
+        else if (seleksi.equals(namaBarang2) || seleksi.equals("2") ) {//kondisi membeli barang yang ke dua
             System.out.print("masukkan stok\t=\t");
-            double stok = a.nextInt();
-            if (stokBarang1 > stok) {
-                double r = stok * hargaBarang2;
+            PembelianStok = a.nextInt();//user memasukkan berapa stok yang ingin dibeli
+            if (stokBarang1 > PembelianStok) {//memastikan bahwa stok barang lebih besar dari stok yang telah dimasukkan oleh user
+                double r = PembelianStok * hargaBarang1;//menentukan harga
                 System.out.println("hargabarang" + hargaBarang2);
                 System.out.println("harga yang akan dibeli adalah\t=\t" + r);
                 System.out.println("apakah ingin melanjutkan transaksi?(Y/N)");
                 a.nextLine();
                 String seleksia = a.nextLine().toLowerCase();
-                if (seleksia.equals("yes") || seleksia.equals("y")) {
+                if (seleksia.equals("yes") || seleksia.equals("y")) {//kondisi jika si user ingin melanjutakn transaksi
                     if (saldomember >= r) {
-                        l = stok * stokBarang1;
-                        b = saldomember - r;
-                        saldomember = b;
-                        stokBarang1 -=stok;
+
+                        l2 = PembelianStok;//l2 sama dengan pembelian
+
+
+
+                        atas2 = (int) l;//pembelian ke variable di atas2
+                        b = saldomember - r;//pengurangan saldo di dalam variabel 'b'
+                        saldomember = b;//hasil b sama dengan saldo
+                        stokBarang1-=l2;
+
+                        //receipt
                         System.out.println("pembelian sukses");
+                        System.out.println("nama\t=\t" + getNama());
+                        System.out.println("no telepon\t=\t" + getTelepon());
+                        System.out.println("alamat anda\t=\t" + getAlamat());
 
-                        System.out.println("nama\t=" + getNama());
-                        System.out.println("no telepon\t= " + getTelepon());
-                        System.out.println("alamat anda\t= " + getAlamat());
-                        System.out.println("membeli barang\t= " + namaBarang2);
-                        System.out.println("stok yang dibeli\t= " + stok);
-                        System.out.println("stok barang sekarang\t= " +stokBarang1);
+                        System.out.println("membeli barang\t=\t" + namaBarang2);
 
+                        System.out.println("stok yang dibeli\t=\t" + l2);
+                        System.out.println("stok barang sekarang\t= " +(stokBarang1-l2));
+                        System.out.println("======SEDANG DIKIRIM======");
                         System.out.println("apakah ingin kembali ke halaman awal?(Y/N)\t=\t");
 
-                        String seleksi4 = a.nextLine().toLowerCase();
-                        if (seleksi4.equals("yes") || seleksi4.equals("y")) {
-                            menutama();
-                        } else if (seleksi.equals("no") || seleksi.equals("n")) {
-                            System.exit(0);
-                        }
-                    } else if (saldomember <= r) {
+                    } else if (saldomember <= r) {//kondisi ketika saldo kurang
                         System.out.println("saldo anda kurang harap top up terlebih dahulu");
                         menutama();
                     }
-                } else if (seleksia.equals("no") || seleksia.equals("n")) {
+                } else if (seleksia.equals("no") || seleksia.equals("n")) {//kondisi ketika si user tidak ingin melanjutakan transaksi
                     menutama();
                 }
 
-            } else if (stokBarang1 < stok) {
+            } else if (stokBarang < penguranganstok) {//kondisi ketika si user menginput lebih dari stok yang ada
                 System.out.println("anda membeli lebih dari stok yang seharusnya");
                 a.nextLine();
                 menutama();
             }
+
         }
-    }
+        String seleksi4 = a.nextLine().toLowerCase();
+        if (seleksi4.equals("yes") || seleksi4.equals("y")) {//kondisi ketika si user telah menyelesaikan transaksi dan ingin kembali ke menuutama
+            menutama();
+
+        } else if (seleksi.equals("no") || seleksi.equals("n")) {//kondisi jika user menyudahi semua transaksinya dan keluar dari system
+            System.exit(0);
+        }
+        }
+
 
     //class menu utama
-    public void menutama() {
+    public void menutama() {//Opsi sebagai member
         System.out.println("");
         System.out.println("=====PILIHAN MEMBER=====");
         System.out.println("1.Beli barang");
@@ -290,16 +265,16 @@ public class member extends userinter {
         //switch case seleksi
         switch (seleksi) {
             case ("1"):
-                setoverall();
+                setoverall();//membeli barang
                 break;
             case ("2"):
-                saldomember();
+                saldomember();//mengisi saldo (SEBAGAI MEMBER)
                 break;
             case ("3"):
-                Lihatsaldo();
+                Lihatsaldo();//Lihat saldo
                 break;
             case ("4"):
-                System.exit(0);
+                System.exit(0);//keluar dari system
 
             default:
                 System.out.println("invalid");
@@ -308,12 +283,12 @@ public class member extends userinter {
     }
 
     //display output
-    public void display() {
-        nama();
-        alamat();
-        telepon();
+    public void display() {//Menjalankan semua class yang ada diatas
+        nama();//abstract nama
+        alamat();//abstract alamat
+        telepon();//abstract telepon
 
-        menutama();
+        menutama();//class menuutama (OPSI SEBAGAI MEMBER)
 
     }
 
