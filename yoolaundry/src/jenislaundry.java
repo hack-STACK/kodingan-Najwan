@@ -65,7 +65,7 @@ public class jenislaundry implements myInterfaces {
         System.out.println("==============================");
         System.out.println("Jenis Laundry: " + jenis);
         System.out.println("Estimasi Waktu: " + durasi + " Jam");
-        System.out.println("Jumlah Barang: " + jumlah);
+        System.out.println("berat Barang: " + jumlah+"/Kg");
         System.out.println("Total Harga: Rp" + totalHarga);
         System.out.println("==============================");
     }
