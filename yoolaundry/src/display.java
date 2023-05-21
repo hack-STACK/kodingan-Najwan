@@ -78,15 +78,14 @@ public class display {
 
         //made a object
 
-        //input usernam
+        //input username
         System.out.println("");
         System.out.print("masukkan username\t=\t");
         setInput(a.nextLine());
         //input password
         System.out.print("masukkan password\t=\t");
         setInput2(a.nextLine());
-
-
+        //memasukkan inputan ke dalam array
         setArray(getInput(),getinput2());
         System.out.println(Arrays.toString(getArray()));
 

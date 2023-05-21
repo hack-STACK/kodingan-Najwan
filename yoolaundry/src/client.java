@@ -9,6 +9,8 @@ public class client extends perwarisan implements myInterfaces
     private String input;
     private double jumlah;
 
+    private double harga;
+
     private userlogin user = new userlogin("admin","user","user",0,0);
     private ArrayList<jenislaundry> listlaundry = new ArrayList<jenislaundry>();
 
@@ -22,6 +24,14 @@ public class client extends perwarisan implements myInterfaces
     {
         this.setTelepon();
     }
+
+    public void setHarga(double ab, double ag){
+        this.harga = ab * ag;
+    }
+    public double getHarga(){
+        return harga;
+    }
+
 
 
     protected void nama()
@@ -51,7 +61,7 @@ public class client extends perwarisan implements myInterfaces
         this.jumlah = jumlah;
     }
     public double getJumlah(){
-        return jumlah;
+        return Double.parseDouble(String.valueOf(jumlah));
     }
 
     public client ()
@@ -98,10 +108,11 @@ public class client extends perwarisan implements myInterfaces
         }
         System.out.printf("Anda memilih laundry %s (Rp%.0f/KG).%n", choosenlaundry.getJenis(), choosenlaundry.getHarga());
         System.out.print("Masukkan berapa barang yang akan dicuci: ");
-        setInput(a.nextDouble());
+        setJumlah(a.nextDouble());
         //double totalHarga =  (choosenlaundry.getHarga() * getinput());
-        setJumlah(choosenlaundry.getHarga()*getinput());
-        if (user.getSaldo() < getJumlah())
+        //setJumlah(choosenlaundry.getHarga()*getinput());
+        setHarga(choosenlaundry.getHarga(), (getJumlah()));
+        if (user.getSaldo() < getHarga())
         {
             System.out.println("saldo anda kurang");
             System.out.print("Kembali (Y/N)\t:\t");
@@ -119,7 +130,7 @@ public class client extends perwarisan implements myInterfaces
         else if (user.getSaldo() > getJumlah())
         {
             user.kurangiSaldo(getJumlah());
-            choosenlaundry.printReceipt(getinput(),getJumlah());
+            choosenlaundry.printReceipt(getJumlah(),getHarga());
             System.out.println("ingin kembali?(Y/N)");
             a.nextLine();
             setInput(a.nextLine());
